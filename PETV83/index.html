@@ -1,0 +1,717 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Fundamentals & Scanning Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            background: #f9fafb;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #7c3aed 100%);
+        }
+        .code-block {
+            background: #1f2937;
+            color: #f3f4f6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #34d399 0%, #60a5fa 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #7c3aed);
+            margin: 2.5rem 0;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+        .collapsible-header {
+            cursor: pointer;
+            padding: 1rem;
+            background: #f3f4f6;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .collapsible-header:hover {
+            background: #e5e7eb;
+        }
+        .collapsible-content {
+            display: none;
+            padding: 1rem;
+        }
+        .collapsible-content.active {
+            display: block;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        table {
+            min-width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+        .toc-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #374151;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        .toc-link:hover {
+            background: #e5e7eb;
+            color: #3b82f6;
+            transform: translateX(6px);
+        }
+        .mermaid-diagram {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    <i class="fas fa-network-wired mr-4"></i>
+                    Network Fundamentals & Scanning Guide
+                </h1>
+                <p class="text-2xl md:text-3xl font-light">
+                    Master the <span class="highlight font-semibold">Basics of Networking</span>, 
+                    <span class="highlight font-semibold">Protocols</span>, and 
+                    <span class="highlight font-semibold">Network Scanning</span>
+                </p>
+                <div class="mt-8 flex justify-center space-x-6">
+                    <span class="bg-white bg-opacity-20 px-5 py-3 rounded-full text-base">
+                        <i class="fas fa-sitemap mr-2"></i>Network Basics
+                    </span>
+                    <span class="bg-white bg-opacity-20 px-5 py-3 rounded-full text-base">
+                        <i class="fas fa-stream mr-2"></i>Protocols
+                    </span>
+                    <span class="bg-white bg-opacity-20 px-5 py-3 rounded-full text-base">
+                        <i class="fas fa-search mr-2"></i>Scanning Techniques
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center space-x-10 py-5">
+                <a href="#introduction" class="nav-link text-gray-800">Introduction</a>
+                <a href="#fundamentals" class="nav-link text-gray-800">Fundamentals</a>
+                <a href="#components" class="nav-link text-gray-800">Components</a>
+                <a href="#protocols" class="nav-link text-gray-800">Protocols</a>
+                <a href="#scanning" class="nav-link text-gray-800">Scanning</a>
+                <a href="#tools" class="nav-link text-gray-800">Tools</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-10">
+        <!-- Table of Contents -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-10">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                <i class="fas fa-list mr-2 text-blue-600"></i>Table of Contents
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-3">Getting Started</h3>
+                    <a href="#introduction" class="toc-link">Introduction</a>
+                    <a href="#fundamentals" class="toc-link">Network Fundamentals</a>
+                    <a href="#components" class="toc-link">Network Components</a>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-3">Core Concepts</h3>
+                    <a href="#protocols" class="toc-link">Network Protocols</a>
+                    <a href="#osi-model" class="toc-link">OSI Model</a>
+                    <a href="#tcp-ip" class="toc-link">TCP/IP Model</a>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-3">Network Scanning</h3>
+                    <a href="#scanning-methods" class="toc-link">Scanning Methods</a>
+                    <a href="#scanning-tools" class="toc-link">Scanning Tools</a>
+                    <a href="#practical-examples" class="toc-link">Practical Examples</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Introduction Section -->
+        <section id="introduction" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-10">
+                <h2 class="text-4xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-info-circle mr-3 text-blue-600"></i>Introduction to Networking
+                </h2>
+                <div class="prose max-w-none">
+                    <p class="text-lg text-gray-700 mb-6">
+                        This guide provides a comprehensive introduction to networking, covering the fundamentals, components, protocols, 
+                        and network scanning techniques. Whether you're a beginner or an aspiring cybersecurity professional, 
+                        you'll learn the essentials of how networks function and how to analyze them securely and ethically.
+                    </p>
+                    <div class="info-box">
+                        <h4 class="font-semibold mb-3">
+                            <i class="fas fa-lightbulb mr-2 text-blue-600"></i>What You'll Learn
+                        </h4>
+                        <ul class="grid md:grid-cols-2 gap-4">
+                            <li>• Core networking concepts and models</li>
+                            <li>• Key network components and their roles</li>
+                            <li>• Essential protocols and their applications</li>
+                            <li>• Network scanning methods and tools</li>
+                            <li>• Practical examples for real-world analysis</li>
+                            <li>• Ethical considerations for network scanning</li>
+                        </ul>
+                    </div>
+                    <div class="warning-box">
+                        <h4 class="font-semibold mb-3">
+                            <i class="fas fa-exclamation-triangle mr-2 text-yellow-600"></i>Ethical Usage
+                        </h4>
+                        <p>
+                            Network scanning can be powerful but must be used responsibly. Always obtain explicit permission before 
+                            scanning any network or system. Unauthorized scanning may be illegal in your jurisdiction.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Network Fundamentals Section -->
+        <section id="fundamentals" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-10">
+                <h2 class="text-4xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-sitemap mr-3 text-green-600"></i>Network Fundamentals
+                </h2>
+                <div class="prose max-w-none">
+                    <p class="text-gray-700 mb-4">
+                        A computer network is a collection of interconnected devices that share resources and communicate data. 
+                        Understanding the fundamentals is crucial for network administration and cybersecurity.
+                    </p>
+                    <div class="collapsible-header">
+                        <h3 class="text-2xl font-semibold">Key Concepts <i class="fas fa-chevron-down ml-2"></i></h3>
+                    </div>
+                    <div class="collapsible-content">
+                        <ul class="space-y-3 text-gray-700">
+                            <li><strong>Network:</strong> A system of devices (computers, servers, routers) connected to exchange data.</li>
+                            <li><strong>LAN (Local Area Network):</strong> A network within a small geographical area, like an office.</li>
+                            <li><strong>WAN (Wide Area Network):</strong> A network spanning large areas, like the internet.</li>
+                            <li><strong>IP Address:</strong> A unique identifier for devices (e.g., 192.168.1.1).</li>
+                            <li><strong>MAC Address:</strong> A hardware identifier for network interfaces.</li>
+                            <li><strong>Packet:</strong> A unit of data transmitted over a network.</li>
+                        </ul>
+                    </div>
+                    <div class="mermaid-diagram">
+                        <div class="mermaid">
+                            graph TD
+                                A[Network] --> B[LAN]
+                                A --> C[WAN]
+                                A --> D[Devices]
+                                D --> E[IP Address]
+                                D --> F[MAC Address]
+                                A --> G[Packets]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Network Components Section -->
+        <section id="components" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-10">
+                <h2 class="text-4xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-server mr-3 text-purple-600"></i>Network Components
+                </h2>
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="card p-6">
+                        <div class="text-center">
+                            <div class="text-5xl mb-4"><i class="fas fa-laptop"></i></div>
+                            <h3 class="text-xl font-semibold mb-2">Devices</h3>
+                            <p class="text-gray-600">Computers, servers, IoT devices connected to the network.</p>
+                        </div>
+                    </div>
+                    <div class="card p-6">
+                        <div class="text-center">
+                            <div class="text-5xl mb-4"><i class="fas fa-router"></i></div>
+                            <h3 class="text-xl font-semibold mb-2">Routers & Switches</h3>
+                            <p class="text-gray-600">Direct and manage network traffic.</p>
+                        </div>
+                    </div>
+                    <div class="card p-6">
+                        <div class="text-center">
+                            <div class="text-5xl mb-4"><i class="fas fa-shield-alt"></i></div>
+                            <h3 class="text-xl font-semibold mb-2">Firewalls</h3>
+                            <p class="text-gray-600">Secure networks by filtering traffic.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Function</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Router</strong></td>
+                                <td>Connects networks and routes packets</td>
+                                <td>Cisco ISR, TP-Link Archer</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Switch</strong></td>
+                                <td>Connects devices within a LAN</td>
+                                <td>Netgear GS308, Cisco Catalyst</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Firewall</strong></td>
+                                <td>Filters network traffic based on rules</td>
+                                <td>Palo Alto, Fortinet</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Access Point</strong></td>
+                                <td>Enables wireless connectivity</td>
+                                <td>Ubiquiti UniFi, Aruba AP</td>
+                            </tr>
+                            <tr>
+                                <td><strong>NIC</strong></td>
+                                <td>Network Interface Card for connectivity</td>
+                                <td>Intel Ethernet, Realtek</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Network Protocols Section -->
+        <section id="protocols" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-10">
+                <h2 class="text-4xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-stream mr-3 text-blue-600"></i>Network Protocols
+                </h2>
+                <div class="prose max-w-none">
+                    <p class="text-gray-700 mb-4">
+                        Protocols are rules that govern data communication in networks. They define how devices exchange information.
+                    </p>
+                    <div class="collapsible-header">
+                        <h3 class="text-2xl font-semibold">Key Protocols <i class="fas fa-chevron-down ml-2"></i></h3>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="table-container">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Protocol</th>
+                                        <th>Layer</th>
+                                        <th>Function</th>
+                                        <th>Port</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>TCP</strong></td>
+                                        <td>Transport</td>
+                                        <td>Reliable, connection-oriented data transfer</td>
+                                        <td>Varies (e.g., 80, 443)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>UDP</strong></td>
+                                        <td>Transport</td>
+                                        <td>Fast, connectionless data transfer</td>
+                                        <td>Varies (e.g., 53, 123)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>HTTP/HTTPS</strong></td>
+                                        <td>Application</td>
+                                        <td>Web browsing (secure and non-secure)</td>
+                                        <td>80, 443</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>DNS</strong></td>
+                                        <td>Application</td>
+                                        <td>Domain name resolution</td>
+                                        <td>53</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ICMP</strong></td>
+                                        <td>Network</td>
+                                        <td>Ping and error messaging</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>FTP</strong></td>
+                                        <td>Application</td>
+                                        <td>File transfer</td>
+                                        <td>20, 21</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="osi-model" class="mt-6">
+                        <h3 class="text-2xl font-semibold mb-4">OSI Model</h3>
+                        <p class="text-gray-700 mb-4">
+                            The OSI (Open Systems Interconnection) model is a framework for understanding network interactions.
+                        </p>
+                        <div class="mermaid-diagram">
+                            <div class="mermaid">
+                                graph TD
+                                    A[Application Layer] --> B[Presentation Layer]
+                                    B --> C[Session Layer]
+                                    C --> D[Transport Layer]
+                                    D --> E[Network Layer]
+                                    E --> F[Data Link Layer]
+                                    F --> G[Physical Layer]
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tcp-ip" class="mt-6">
+                        <h3 class="text-2xl font-semibold mb-4">TCP/IP Model</h3>
+                        <p class="text-gray-700 mb-4">
+                            The TCP/IP model is a practical framework used in modern networking.
+                        </p>
+                        <div class="table-container">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Layer</th>
+                                        <th>Protocols</th>
+                                        <th>Function</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Application</td>
+                                        <td>HTTP, DNS, FTP</td>
+                                        <td>User services and applications</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Transport</td>
+                                        <td>TCP, UDP</td>
+                                        <td>Reliable or fast data transfer</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Internet</td>
+                                        <td>IP, ICMP</td>
+                                        <td>Addressing and routing</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Link</td>
+                                        <td>Ethernet, Wi-Fi</td>
+                                        <td>Physical data transmission</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Network Scanning Section -->
+        <section id="scanning" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-10">
+                <h2 class="text-4xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-search mr-3 text-red-600"></i>Network Scanning
+                </h2>
+                <div class="prose max-w-none">
+                    <p class="text-gray-700 mb-4">
+                        Network scanning identifies active hosts, open ports, services, and vulnerabilities in a network. 
+                        It is a critical skill for cybersecurity professionals and network administrators.
+                    </p>
+                    <div id="scanning-methods" class="mb-8">
+                        <h3 class="text-2xl font-semibold mb-4">Scanning Methods</h3>
+                        <div class="collapsible-header">
+                            <h4 class="text-xl font-semibold">Types of Scans <i class="fas fa-chevron-down ml-2"></i></h4>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="table-container">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th>Scan Type</th>
+                                            <th>Description</th>
+                                            <th>Use Case</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Ping Scan</strong></td>
+                                            <td>Checks for live hosts using ICMP</td>
+                                            <td>Network discovery</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>TCP SYN Scan</strong></td>
+                                            <td>Half-open scan for TCP ports</td>
+                                            <td>Stealthy port discovery</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>TCP Connect Scan</strong></td>
+                                            <td>Full TCP connection</td>
+                                            <td>When raw packet access is unavailable</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>UDP Scan</strong></td>
+                                            <td>Scans UDP ports</td>
+                                            <td>Discovering services like DNS, SNMP</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Version Scan</strong></td>
+                                            <td>Identifies service versions</td>
+                                            <td>Vulnerability assessment</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>OS Detection</strong></td>
+                                            <td>Fingerprints operating systems</td>
+                                            <td>System profiling</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="scanning-tools" class="mb-8">
+                        <h3 class="text-2xl font-semibold mb-4">Network Scanning Tools</h3>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="card p-6">
+                                <h4 class="font-semibold mb-3">Nmap</h4>
+                                <p class="text-gray-600">Comprehensive tool for host discovery, port scanning, and scripting.</p>
+                            </div>
+                            <div class="card p-6">
+                                <h4 class="font-semibold mb-3">Wireshark</h4>
+                                <p class="text-gray-600">Packet analyzer for deep network traffic inspection.</p>
+                            </div>
+                            <div class="card p-6">
+                                <h4 class="font-semibold mb-3">Zenmap</h4>
+                                <p class="text-gray-600">Graphical interface for Nmap with topology visualization.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="practical-examples" class="mb-8">
+                        <h3 class="text-2xl font-semibold mb-4">Practical Examples</h3>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h4 class="font-semibold mb-3">Example 1: Host Discovery</h4>
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        nmap -sn 192.168.1.0/24
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">
+                                    Discovers live hosts in the 192.168.1.0/24 network without port scanning.
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h4 class="font-semibold mb-3">Example 2: TCP SYN Scan</h4>
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        nmap -sS 192.168.1.100
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">
+                                    Performs a stealthy TCP SYN scan to identify open ports.
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h4 class="font-semibold mb-3">Example 3: Wireshark Packet Capture</h4>
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        tshark -i eth0 -f "tcp port 80" -w capture.pcap
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">
+                                    Captures HTTP traffic on interface eth0 and saves it to a file.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="tools" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-10">
+                <h2 class="text-4xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-tools mr-3 text-indigo-600"></i>Network Scanning Tools
+                </h2>
+                <div class="table-container">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th>Tool</th>
+                                <th>Type</th>
+                                <th>Features</th>
+                                <th>Platform</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Nmap</strong></td>
+                                <td>CLI/GUI</td>
+                                <td>Host discovery, port scanning, scripting</td>
+                                <td>Windows, Linux, macOS</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Wireshark</strong></td>
+                                <td>GUI/CLI</td>
+                                <td>Packet capture, protocol analysis</td>
+                                <td>Windows, Linux, macOS</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Zenmap</strong></td>
+                                <td>GUI</td>
+                                <td>Nmap GUI, topology mapping</td>
+                                <td>Windows, Linux, macOS</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Masscan</strong></td>
+                                <td>CLI</td>
+                                <td>High-speed port scanning</td>
+                                <td>Linux, macOS</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Angry IP Scanner</strong></td>
+                                <td>GUI</td>
+                                <td>Simple host discovery</td>
+                                <td>Windows, Linux, macOS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info-box mt-6">
+                    <h4 class="font-semibold mb-3">
+                        <i class="fas fa-lightbulb mr-2 text-blue-600"></i>Pro Tip
+                    </h4>
+                    <p>
+                        Start with Zenmap for an intuitive interface, then transition to Nmap CLI for advanced scripting and automation.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2025 Network Fundamentals & Scanning Guide. All rights reserved.</p>
+            <p class="mt-2">Built with <i class="fas fa-heart text-red-500"></i> for network enthusiasts.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Initialize Mermaid for diagrams
+        mermaid.initialize({ startOnLoad: true });
+
+        // Collapsible sections
+        document.querySelectorAll('.collapsible-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
