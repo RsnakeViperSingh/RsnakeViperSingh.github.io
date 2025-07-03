@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)file:///C:/Users/kirti/OneDrive/Desktop/networktools.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Cybersecurity Tools Mastery Guide: Nmap, Wireshark &amp; Zenmap</title>
+    <link href="./Complete Cybersecurity Tools Mastery Guide_ Nmap, Wireshark &amp; Zenmap_files/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Complete Cybersecurity Tools Mastery Guide_ Nmap, Wireshark &amp; Zenmap_files/all.min.css">
+    <link href="./Complete Cybersecurity Tools Mastery Guide_ Nmap, Wireshark &amp; Zenmap_files/css2" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .code-block {
+            background: #1a1a1a;
+            color: #f8f8f2;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 2rem 0;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .tool-card:hover {
+            transform: translateY(-2px);
+        }
+        .nav-link {
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #667eea;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        .warning-box {
+            background: #fef3cd;
+            border: 1px solid #facc15;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .success-box {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        table {
+            min-width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+        .toc-link {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: #4b5563;
+            text-decoration: none;
+            transition: all 0.2s;
+            border-radius: 4px;
+        }
+        .toc-link:hover {
+            background: #f3f4f6;
+            color: #667eea;
+            transform: translateX(4px);
+        }
+        .command-output {
+            background: #0f172a;
+            color: #64748b;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+        }
+        .command-output .command {
+            color: #22d3ee;
+        }
+        .command-output .output {
+            color: #a3a3a3;
+        }
+        .command-output .highlight-output {
+            color: #fbbf24;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                    <i class="fas fa-shield-alt mr-4"></i>
+                    Cybersecurity Tools Mastery Guide
+                </h1>
+                <p class="text-xl md:text-2xl font-light">
+                    Complete Beginner's Guide to <span class="highlight font-semibold">Nmap</span>, 
+                    <span class="highlight font-semibold">Wireshark</span> &amp; 
+                    <span class="highlight font-semibold">Zenmap</span>
+                </p>
+                <div class="mt-6 flex justify-center space-x-4">
+                    <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">
+                        <i class="fas fa-search mr-2"></i>Network Scanning
+                    </span>
+                    <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">
+                        <i class="fas fa-eye mr-2"></i>Traffic Analysis
+                    </span>
+                    <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">
+                        <i class="fas fa-bug mr-2"></i>Vulnerability Assessment
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center space-x-8 py-4">
+                <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#introduction" class="nav-link text-gray-700 hover:text-blue-600">Introduction</a>
+                <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#nmap" class="nav-link text-gray-700 hover:text-blue-600">Nmap</a>
+                <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#wireshark" class="nav-link text-gray-700 hover:text-blue-600">Wireshark</a>
+                <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#zenmap" class="nav-link text-gray-700 hover:text-blue-600">Zenmap</a>
+                <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#comparisons" class="nav-link text-gray-700 hover:text-blue-600">Comparisons</a>
+                <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#resources" class="nav-link text-gray-700 hover:text-blue-600">Resources</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Table of Contents -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                <i class="fas fa-list mr-2 text-blue-600"></i>Table of Contents
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">Getting Started</h3>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#introduction" class="toc-link">Introduction</a>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#prerequisites" class="toc-link">Prerequisites</a>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#setup" class="toc-link">Environment Setup</a>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">Nmap Mastery</h3>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#nmap-basics" class="toc-link">Nmap Basics</a>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#nmap-advanced" class="toc-link">Advanced Scanning</a>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#nmap-scripts" class="toc-link">NSE Scripts</a>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#nmap-evasion" class="toc-link">Evasion Techniques</a>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">Wireshark Analysis</h3>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#wireshark-basics" class="toc-link">Wireshark Basics</a>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#wireshark-filters" class="toc-link">Filtering Techniques</a>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#wireshark-analysis" class="toc-link">Traffic Analysis</a>
+                    <a href="file:///C:/Users/kirti/OneDrive/Desktop/networktools.html#wireshark-forensics" class="toc-link">Digital Forensics</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Introduction Section -->
+        <section id="introduction" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-rocket mr-3 text-blue-600"></i>Introduction to Cybersecurity Tools
+                </h2>
+                
+                <div class="prose max-w-none">
+                    <p class="text-lg text-gray-700 mb-6">
+                        Welcome to the most comprehensive guide for mastering the three essential cybersecurity tools that every 
+                        security professional, network administrator, and ethical hacker must know. This guide will take you from 
+                        absolute beginner to advanced practitioner through hands-on examples, real-world scenarios, and practical test cases.
+                    </p>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="tool-card p-6">
+                            <div class="text-center">
+                                <div class="text-4xl mb-4">🔍</div>
+                                <h3 class="text-xl font-semibold mb-2">Nmap</h3>
+                                <p class="text-gray-600">Network discovery and security auditing tool</p>
+                            </div>
+                        </div>
+                        <div class="tool-card p-6">
+                            <div class="text-center">
+                                <div class="text-4xl mb-4">📊</div>
+                                <h3 class="text-xl font-semibold mb-2">Wireshark</h3>
+                                <p class="text-gray-600">Network protocol analyzer and packet capture tool</p>
+                            </div>
+                        </div>
+                        <div class="tool-card p-6">
+                            <div class="text-center">
+                                <div class="text-4xl mb-4">🖥️</div>
+                                <h3 class="text-xl font-semibold mb-2">Zenmap</h3>
+                                <p class="text-gray-600">Graphical user interface for Nmap</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4 class="font-semibold mb-2">
+                            <i class="fas fa-info-circle mr-2 text-blue-600"></i>What You'll Learn
+                        </h4>
+                        <ul class="space-y-2">
+                            <li>• Complete installation and setup procedures for all platforms</li>
+                            <li>• Basic to advanced usage techniques with practical examples</li>
+                            <li>• Real-world penetration testing scenarios</li>
+                            <li>• Network troubleshooting and forensic analysis</li>
+                            <li>• Automation scripts and professional workflows</li>
+                            <li>• Ethical hacking methodologies and best practices</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4 class="font-semibold mb-2">
+                            <i class="fas fa-exclamation-triangle mr-2 text-yellow-600"></i>Ethical Usage Warning
+                        </h4>
+                        <p>
+                            The tools and techniques covered in this guide are powerful and should only be used on networks 
+                            you own or have explicit permission to test. Unauthorized scanning or packet capture may be 
+                            illegal in your jurisdiction. Always ensure you have proper authorization before conducting any 
+                            security testing.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prerequisites Section -->
+        <section id="prerequisites" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-clipboard-check mr-3 text-green-600"></i>Prerequisites &amp; Environment Setup
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Knowledge Prerequisites</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Basic understanding of networking concepts (TCP/IP, OSI model)
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Command line familiarity (Windows CMD, Linux Terminal)
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Basic understanding of network protocols (HTTP, FTP, DNS, etc.)
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                Fundamental cybersecurity concepts
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Technical Requirements</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-center">
+                                <i class="fas fa-laptop text-blue-500 mr-2"></i>
+                                Windows 10/11, macOS 10.14+, or Linux distribution
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-memory text-blue-500 mr-2"></i>
+                                Minimum 4GB RAM (8GB recommended)
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-hdd text-blue-500 mr-2"></i>
+                                2GB free disk space for tools and captures
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-shield-alt text-blue-500 mr-2"></i>
+                                Administrator/root privileges for installation
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <h3 class="text-2xl font-semibold mb-6">Lab Environment Setup</h3>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h4 class="font-semibold mb-3">
+                            <i class="fab fa-windows text-blue-600 mr-2"></i>Windows Setup
+                        </h4>
+                        <div class="code-block">
+                            <div class="text-sm">
+                                # Download from official sources:<br>
+                                # Nmap: https://nmap.org/download.html<br>
+                                # Wireshark: https://wireshark.org/download.html<br>
+                                # Install as Administrator<br>
+                                # Reboot after installation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h4 class="font-semibold mb-3">
+                            <i class="fab fa-linux text-gray-800 mr-2"></i>Linux Setup
+                        </h4>
+                        <div class="code-block">
+                            <div class="text-sm code-font">
+                                # Ubuntu/Debian<br>
+                                sudo apt update<br>
+                                sudo apt install nmap wireshark<br>
+                                <br>
+                                # CentOS/RHEL<br>
+                                sudo yum install nmap wireshark
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h4 class="font-semibold mb-3">
+                            <i class="fab fa-apple text-gray-700 mr-2"></i>macOS Setup
+                        </h4>
+                        <div class="code-block">
+                            <div class="text-sm code-font">
+                                # Using Homebrew<br>
+                                brew install nmap wireshark<br>
+                                <br>
+                                # Or download from official sites<br>
+                                # Install .dmg packages
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nmap Section -->
+        <section id="nmap" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-4xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-search mr-3 text-blue-600"></i>Nmap: Network Mapper Mastery
+                </h2>
+
+                <!-- Nmap Introduction -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4">What is Nmap?</h3>
+                    <p class="text-gray-700 mb-4">
+                        Nmap (Network Mapper) is a free and open-source network discovery and security auditing tool. 
+                        Created by Gordon "Fyodor" Lyon in 1997, it has become the de facto standard for network reconnaissance 
+                        and is used by security professionals, system administrators, and network engineers worldwide.
+                    </p>
+
+                    <div class="bg-blue-50 p-6 rounded-lg mb-6">
+                        <h4 class="font-semibold mb-3">Core Capabilities</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <ul class="space-y-2">
+                                <li>• Host discovery and network mapping</li>
+                                <li>• Port scanning and service detection</li>
+                                <li>• Operating system fingerprinting</li>
+                                <li>• Network vulnerability assessment</li>
+                            </ul>
+                            <ul class="space-y-2">
+                                <li>• Firewall and IDS evasion techniques</li>
+                                <li>• Scriptable network discovery (NSE)</li>
+                                <li>• Performance and timing optimization</li>
+                                <li>• Comprehensive reporting and output</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nmap Basics -->
+                <div id="nmap-basics" class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Nmap Fundamentals</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Basic Syntax</h4>
+                        <div class="code-block">
+                            <div class="code-font">
+                                nmap [Scan Type] [Options] [Target Specification]
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Your First Nmap Scan</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="flex items-start mb-4">
+                                <div class="step-number">1</div>
+                                <div>
+                                    <h5 class="font-semibold mb-2">Basic Host Discovery</h5>
+                                    <div class="code-block">
+                                        <div class="code-font">
+                                            nmap 192.168.1.1
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-2">
+                                        This performs a basic scan of the target IP address, checking the most common 1,000 ports.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="command-output">
+                                <div class="command">$ nmap 192.168.1.1</div>
+                                <div class="output">
+                                    Starting Nmap 7.93 ( https://nmap.org ) at 2024-01-15 10:30 EST<br>
+                                    Nmap scan report for 192.168.1.1<br>
+                                    Host is up (0.0012s latency).<br>
+                                    Not shown: 996 closed ports<br>
+                                    <span class="highlight-output">PORT     STATE SERVICE</span><br>
+                                    <span class="highlight-output">22/tcp   open  ssh</span><br>
+                                    <span class="highlight-output">80/tcp   open  http</span><br>
+                                    <span class="highlight-output">443/tcp  open  https</span><br>
+                                    <span class="highlight-output">8080/tcp open  http-proxy</span><br>
+                                    <br>
+                                    Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Essential Scan Types</h4>
+                        
+                        <div class="table-container">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Scan Type</th>
+                                        <th>Command</th>
+                                        <th>Description</th>
+                                        <th>Use Case</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-semibold">TCP Connect</td>
+                                        <td class="code-font">-sT</td>
+                                        <td>Full TCP connection</td>
+                                        <td>When you don't have raw socket privileges</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">SYN Scan</td>
+                                        <td class="code-font">-sS</td>
+                                        <td>Half-open scanning</td>
+                                        <td>Fast and stealthy scanning (default)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">UDP Scan</td>
+                                        <td class="code-font">-sU</td>
+                                        <td>Scans UDP ports</td>
+                                        <td>Discovering UDP services</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Ping Scan</td>
+                                        <td class="code-font">-sn</td>
+                                        <td>Host discovery only</td>
+                                        <td>Network mapping without port scanning</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Practical Examples</h4>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">Example 1: Network Discovery</h5>
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        # Discover all hosts in a network<br>
+                                        nmap -sn 192.168.1.0/24
+                                    </div>
+                                </div>
+                                <div class="command-output">
+                                    <div class="command">$ nmap -sn 192.168.1.0/24</div>
+                                    <div class="output">
+                                        Starting Nmap 7.93 ( https://nmap.org ) at 2024-01-15 10:35 EST<br>
+                                        <span class="highlight-output">Nmap scan report for 192.168.1.1</span><br>
+                                        Host is up (0.0010s latency).<br>
+                                        <span class="highlight-output">Nmap scan report for 192.168.1.100</span><br>
+                                        Host is up (0.0015s latency).<br>
+                                        <span class="highlight-output">Nmap scan report for 192.168.1.150</span><br>
+                                        Host is up (0.0012s latency).<br>
+                                        Nmap done: 256 IP addresses (3 hosts up) scanned in 2.1 seconds
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">
+                                    This scan discovers all active hosts in the 192.168.1.0/24 network without scanning ports.
+                                </p>
+                            </div>
+
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">Example 2: Service Version Detection</h5>
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        # Detect service versions<br>
+                                        nmap -sV 192.168.1.100
+                                    </div>
+                                </div>
+                                <div class="command-output">
+                                    <div class="command">$ nmap -sV 192.168.1.100</div>
+                                    <div class="output">
+                                        Starting Nmap 7.93 ( https://nmap.org ) at 2024-01-15 10:40 EST<br>
+                                        Nmap scan report for 192.168.1.100<br>
+                                        Host is up (0.0010s latency).<br>
+                                        <span class="highlight-output">PORT     STATE SERVICE VERSION</span><br>
+                                        <span class="highlight-output">22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.5</span><br>
+                                        <span class="highlight-output">80/tcp   open  http    Apache httpd 2.4.41</span><br>
+                                        <span class="highlight-output">443/tcp  open  https   Apache httpd 2.4.41 ((Ubuntu))</span><br>
+                                        <span class="highlight-output">3306/tcp open  mysql   MySQL 8.0.32-0ubuntu0.20.04.2</span><br>
+                                        <br>
+                                        Nmap done: 1 IP address (1 host up) scanned in 6.45 seconds
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">
+                                    This scan reveals detailed service information including versions, which is crucial for vulnerability assessment.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Nmap -->
+                <div id="nmap-advanced" class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Advanced Nmap Techniques</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Operating System Detection</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="code-block">
+                                <div class="code-font">
+                                    # OS fingerprinting<br>
+                                    nmap -O 192.168.1.100<br>
+                                    <br>
+                                    # Aggressive OS detection<br>
+                                    nmap -O --osscan-guess 192.168.1.100
+                                </div>
+                            </div>
+                            <div class="command-output">
+                                <div class="command">$ nmap -O 192.168.1.100</div>
+                                <div class="output">
+                                    Starting Nmap 7.93 ( https://nmap.org ) at 2024-01-15 10:45 EST<br>
+                                    Nmap scan report for 192.168.1.100<br>
+                                    Host is up (0.0010s latency).<br>
+                                    Not shown: 996 closed ports<br>
+                                    PORT     STATE SERVICE<br>
+                                    22/tcp   open  ssh<br>
+                                    80/tcp   open  http<br>
+                                    443/tcp  open  https<br>
+                                    3306/tcp open  mysql<br>
+                                    <span class="highlight-output">Device type: general purpose</span><br>
+                                    <span class="highlight-output">Running: Linux 4.X|5.X</span><br>
+                                    <span class="highlight-output">OS CPE: cpe:/o:linux:linux_kernel:4 cpe:/o:linux:linux_kernel:5</span><br>
+                                    <span class="highlight-output">OS details: Linux 4.15 - 5.6</span><br>
+                                    Network Distance: 1 hop
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Port Specification Techniques</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-semibold mb-3">Common Port Ranges</h5>
+                                <div class="code-block text-sm">
+                                    <div class="code-font">
+                                        # Specific ports<br>
+                                        nmap -p 22,80,443 target<br>
+                                        <br>
+                                        # Port ranges<br>
+                                        nmap -p 1-1000 target<br>
+                                        <br>
+                                        # All ports<br>
+                                        nmap -p- target<br>
+                                        <br>
+                                        # Top ports<br>
+                                        nmap --top-ports 100 target
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-semibold mb-3">Protocol-Specific Scanning</h5>
+                                <div class="code-block text-sm">
+                                    <div class="code-font">
+                                        # TCP ports only<br>
+                                        nmap -p T:80,443 target<br>
+                                        <br>
+                                        # UDP ports only<br>
+                                        nmap -p U:53,161 target<br>
+                                        <br>
+                                        # Mixed protocols<br>
+                                        nmap -p T:80,U:53 target
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Timing and Performance</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <p class="mb-4">Nmap offers timing templates to balance speed and stealth:</p>
+                            <div class="table-container">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th>Template</th>
+                                            <th>Name</th>
+                                            <th>Speed</th>
+                                            <th>Stealth</th>
+                                            <th>Use Case</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="code-font">-T0</td>
+                                            <td>Paranoid</td>
+                                            <td class="text-red-600">Very Slow</td>
+                                            <td class="text-green-600">Maximum</td>
+                                            <td>IDS evasion</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code-font">-T1</td>
+                                            <td>Sneaky</td>
+                                            <td class="text-red-600">Slow</td>
+                                            <td class="text-green-600">High</td>
+                                            <td>Avoiding detection</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code-font">-T2</td>
+                                            <td>Polite</td>
+                                            <td class="text-yellow-600">Moderate</td>
+                                            <td class="text-yellow-600">Medium</td>
+                                            <td>Bandwidth conservation</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code-font">-T3</td>
+                                            <td>Normal</td>
+                                            <td class="text-green-600">Normal</td>
+                                            <td class="text-yellow-600">Medium</td>
+                                            <td>Default timing</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code-font">-T4</td>
+                                            <td>Aggressive</td>
+                                            <td class="text-green-600">Fast</td>
+                                            <td class="text-red-600">Low</td>
+                                            <td>Reliable networks</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code-font">-T5</td>
+                                            <td>Insane</td>
+                                            <td class="text-green-600">Very Fast</td>
+                                            <td class="text-red-600">Minimal</td>
+                                            <td>Speed over accuracy</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NSE Scripts -->
+                <div id="nmap-scripts" class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Nmap Scripting Engine (NSE)</h3>
+                    
+                    <div class="mb-6">
+                        <p class="text-gray-700 mb-4">
+                            The Nmap Scripting Engine (NSE) is one of Nmap's most powerful features, allowing you to 
+                            write and execute custom scripts for network discovery, vulnerability detection, and exploitation.
+                        </p>
+
+                        <div class="bg-blue-50 p-6 rounded-lg mb-6">
+                            <h4 class="font-semibold mb-3">NSE Script Categories</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <ul class="space-y-1">
+                                    <li><strong>auth:</strong> Authentication bypass</li>
+                                    <li><strong>broadcast:</strong> Network broadcast discovery</li>
+                                    <li><strong>brute:</strong> Brute force attacks</li>
+                                    <li><strong>default:</strong> Default scripts</li>
+                                    <li><strong>discovery:</strong> Service/host discovery</li>
+                                </ul>
+                                <ul class="space-y-1">
+                                    <li><strong>dos:</strong> Denial of service detection</li>
+                                    <li><strong>exploit:</strong> Exploit known vulnerabilities</li>
+                                    <li><strong>external:</strong> External service queries</li>
+                                    <li><strong>fuzzer:</strong> Fuzzing attacks</li>
+                                    <li><strong>vuln:</strong> Vulnerability detection</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Essential NSE Scripts</h4>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">Vulnerability Scanning</h5>
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        # Run all vulnerability scripts<br>
+                                        nmap --script vuln 192.168.1.100<br>
+                                        <br>
+                                        # Specific vulnerability scripts<br>
+                                        nmap --script ms17-010 192.168.1.100<br>
+                                        nmap --script ssl-heartbleed 192.168.1.100
+                                    </div>
+                                </div>
+                                <div class="command-output">
+                                    <div class="command">$ nmap --script vuln 192.168.1.100</div>
+                                    <div class="output">
+                                        Starting Nmap 7.93 ( https://nmap.org ) at 2024-01-15 11:00 EST<br>
+                                        Nmap scan report for 192.168.1.100<br>
+                                        Host is up (0.0010s latency).<br>
+                                        <br>
+                                        PORT     STATE SERVICE<br>
+                                        22/tcp   open  ssh<br>
+                                        80/tcp   open  http<br>
+                                        | http-slowloris-check:<br>
+                                        |   VULNERABLE:<br>
+                                        |   Slowloris DOS attack<br>
+                                        |     State: LIKELY VULNERABLE<br>
+                                        |     IDs:  CVE:CVE-2007-6750<br>
+                                        |       Slowloris tries to keep many connections to the target<br>
+                                        |_      web server open and hold them open as long as possible<br>
+                                        443/tcp  open  https<br>
+                                        | ssl-ccs-injection:<br>
+                                        |   VULNERABLE:<br>
+                                        |   SSL/TLS MITM vulnerability (CCS Injection)<br>
+                                        |     State: VULNERABLE<br>
+                                        |     Risk factor: High<br>
+                                        |_    CVE: CVE-2014-0224
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">Web Application Enumeration</h5>
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        # HTTP enumeration<br>
+                                        nmap --script http-enum 192.168.1.100<br>
+                                        <br>
+                                        # Directory discovery<br>
+                                        nmap --script http-enum --script-args http-enum.basepath=/admin/ 192.168.1.100<br>
+                                        <br>
+                                        # HTTP methods<br>
+                                        nmap --script http-methods 192.168.1.100
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">SMB Enumeration</h5>
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        # SMB shares enumeration<br>
+                                        nmap --script smb-enum-shares 192.168.1.100<br>
+                                        <br>
+                                        # SMB users enumeration<br>
+                                        nmap --script smb-enum-users 192.168.1.100<br>
+                                        <br>
+                                        # SMB OS discovery<br>
+                                        nmap --script smb-os-discovery 192.168.1.100
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Creating Custom NSE Scripts</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <p class="mb-4">Here's a simple example of a custom NSE script:</p>
+                            <div class="code-block">
+                                <div class="code-font text-sm">
+                                    -- Custom banner grabbing script<br>
+                                    local shortport = require "shortport"<br>
+                                    local stdnse = require "stdnse"<br>
+                                    <br>
+                                    description = [[<br>
+                                    Attempts to grab banners from common services<br>
+                                    ]]<br>
+                                    <br>
+                                    author = "Your Name"<br>
+                                    license = "Same as Nmap--See https://nmap.org/book/man-legal.html"<br>
+                                    categories = {"discovery", "safe"}<br>
+                                    <br>
+                                    portrule = shortport.port_or_service({21, 22, 23, 25, 53, 80, 110, 143, 993, 995}, {"ftp", "ssh", "telnet", "smtp", "domain", "http", "pop3", "imap", "imaps", "pop3s"})<br>
+                                    <br>
+                                    action = function(host, port)<br>
+                                        local socket = nmap.new_socket()<br>
+                                        socket:set_timeout(5000)<br>
+                                        <br>
+                                        local status, err = socket:connect(host, port)<br>
+                                        if not status then<br>
+                                            return stdnse.format_output(false, "Failed to connect: " .. err)<br>
+                                        end<br>
+                                        <br>
+                                        local status, banner = socket:receive_lines(1)<br>
+                                        socket:close()<br>
+                                        <br>
+                                        if status then<br>
+                                            return stdnse.format_output(true, "Banner: " .. banner)<br>
+                                        else<br>
+                                            return stdnse.format_output(false, "No banner received")<br>
+                                        end<br>
+                                    end
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evasion Techniques -->
+                <div id="nmap-evasion" class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Firewall and IDS Evasion</h3>
+                    
+                    <div class="warning-box">
+                        <p>
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            <strong>Important:</strong> These techniques should only be used during authorized penetration 
+                            testing or on your own networks. Using evasion techniques on unauthorized networks may be illegal.
+                        </p>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Packet Fragmentation</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="code-block">
+                                <div class="code-font">
+                                    # Fragment packets to evade simple packet filters<br>
+                                    nmap -f 192.168.1.100<br>
+                                    <br>
+                                    # Use smaller fragments<br>
+                                    nmap -ff 192.168.1.100<br>
+                                    <br>
+                                    # Custom MTU size<br>
+                                    nmap --mtu 24 192.168.1.100
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-3">
+                                Fragmentation can help bypass simple packet filters that don't reassemble packets.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Decoy Scanning</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="code-block">
+                                <div class="code-font">
+                                    # Use decoy IP addresses<br>
+                                    nmap -D 192.168.1.5,192.168.1.6,192.168.1.7 192.168.1.100<br>
+                                    <br>
+                                    # Random decoys<br>
+                                    nmap -D RND:10 192.168.1.100<br>
+                                    <br>
+                                    # Specify your real IP in decoy list<br>
+                                    nmap -D 192.168.1.5,ME,192.168.1.7 192.168.1.100
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-3">
+                                Decoy scanning makes it difficult to determine which IP is conducting the actual scan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Source Port Manipulation</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="code-block">
+                                <div class="code-font">
+                                    # Use specific source port (common: 53, 80, 443)<br>
+                                    nmap --source-port 53 192.168.1.100<br>
+                                    <br>
+                                    # Short form<br>
+                                    nmap -g 53 192.168.1.100<br>
+                                    <br>
+                                    # Common bypasses<br>
+                                    nmap -g 80 192.168.1.100   # HTTP source port<br>
+                                    nmap -g 443 192.168.1.100  # HTTPS source port<br>
+                                    nmap -g 53 192.168.1.100   # DNS source port
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Timing Evasion</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="code-block">
+                                <div class="code-font">
+                                    # Very slow scanning to avoid detection<br>
+                                    nmap -T0 192.168.1.100<br>
+                                    <br>
+                                    # Custom timing controls<br>
+                                    nmap --scan-delay 5s 192.168.1.100<br>
+                                    nmap --max-scan-delay 10s 192.168.1.100<br>
+                                    <br>
+                                    # Randomize host scan order<br>
+                                    nmap --randomize-hosts 192.168.1.0/24
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Advanced Evasion Combinations</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="code-block">
+                                <div class="code-font">
+                                    # Comprehensive stealth scan<br>
+                                    nmap -sS -T1 -f --data-length 200 -D RND:10 --source-port 53 192.168.1.100<br>
+                                    <br>
+                                    # Explanation of above command:<br>
+                                    # -sS: SYN scan (stealth)<br>
+                                    # -T1: Sneaky timing<br>
+                                    # -f: Fragment packets<br>
+                                    # --data-length 200: Add random data to packets<br>
+                                    # -D RND:10: Use 10 random decoy IPs<br>
+                                    # --source-port 53: Use DNS source port
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-world Test Cases -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Real-World Test Cases</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-semibold mb-4">
+                                <i class="fas fa-flask mr-2 text-blue-600"></i>Test Case 1: Corporate Network Assessment
+                            </h4>
+                            <p class="mb-4"><strong>Scenario:</strong> You're conducting an authorized penetration test on a corporate network (10.0.0.0/16).</p>
+                            
+                            <div class="bg-white p-4 rounded-lg">
+                                <h5 class="font-semibold mb-3">Step-by-Step Process:</h5>
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <div class="step-number">1</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Initial Network Discovery</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Discover live hosts<br>
+                                                    nmap -sn 10.0.0.0/16 -oA network_discovery<br>
+                                                    <br>
+                                                    # Extract live IPs<br>
+                                                    grep "Nmap scan report" network_discovery.nmap | awk '{print $5}' &gt; live_hosts.txt
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="step-number">2</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Port Scanning</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Scan top 1000 ports on all live hosts<br>
+                                                    nmap -sS -T4 --top-ports 1000 -iL live_hosts.txt -oA port_scan<br>
+                                                    <br>
+                                                    # Focus on critical servers<br>
+                                                    nmap -p- 10.0.0.100 -oA full_scan_server
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="step-number">3</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Service Enumeration</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Detailed service detection<br>
+                                                    nmap -sV -sC --open -iL live_hosts.txt -oA service_detection<br>
+                                                    <br>
+                                                    # Focus on web services<br>
+                                                    nmap -p 80,443,8080,8443 --script http-enum -iL live_hosts.txt
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="step-number">4</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Vulnerability Assessment</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Run vulnerability scripts<br>
+                                                    nmap --script vuln --open -iL live_hosts.txt -oA vulnerability_scan<br>
+                                                    <br>
+                                                    # Specific vulnerability checks<br>
+                                                    nmap --script ms17-010,eternal-blue -p 445 -iL live_hosts.txt
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-semibold mb-4">
+                                <i class="fas fa-flask mr-2 text-green-600"></i>Test Case 2: Web Application Security Testing
+                            </h4>
+                            <p class="mb-4"><strong>Scenario:</strong> Testing a web application for security vulnerabilities.</p>
+                            
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        # Comprehensive web app scan<br>
+                                        nmap -p 80,443,8080,8443 --script http-enum,http-headers,http-methods,http-robots.txt webapp.example.com<br>
+                                        <br>
+                                        # SSL/TLS security<br>
+                                        nmap -p 443 --script ssl-enum-ciphers,ssl-cert,ssl-date webapp.example.com<br>
+                                        <br>
+                                        # Common vulnerabilities<br>
+                                        nmap -p 80,443 --script http-vuln* webapp.example.com
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-red-50 p-6 rounded-lg">
+                            <h4 class="font-semibold mb-4">
+                                <i class="fas fa-flask mr-2 text-red-600"></i>Test Case 3: Incident Response Investigation
+                            </h4>
+                            <p class="mb-4"><strong>Scenario:</strong> Investigating a potential network breach.</p>
+                            
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        # Quick network status check<br>
+                                        nmap -sn 192.168.1.0/24<br>
+                                        <br>
+                                        # Identify unusual services<br>
+                                        nmap -sV -T4 -F 192.168.1.0/24 | grep -E "(open|filtered)"<br>
+                                        <br>
+                                        # Check for backdoors<br>
+                                        nmap -p 1-65535 --open suspicious_host.local<br>
+                                        <br>
+                                        # OS fingerprinting for unusual systems<br>
+                                        nmap -O --osscan-guess 192.168.1.0/24
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wireshark Section -->
+        <section id="wireshark" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-4xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-microscope mr-3 text-green-600"></i>Wireshark: Network Analysis Mastery
+                </h2>
+
+                <!-- Wireshark Introduction -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4">What is Wireshark?</h3>
+                    <p class="text-gray-700 mb-4">
+                        Wireshark is the world's foremost and widely-used network protocol analyzer. Originally developed 
+                        by Gerald Combs in 1998 as "Ethereal," it provides deep inspection of hundreds of protocols and 
+                        runs on multiple platforms including Windows, macOS, and Linux.
+                    </p>
+
+                    <div class="bg-green-50 p-6 rounded-lg mb-6">
+                        <h4 class="font-semibold mb-3">Core Capabilities</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <ul class="space-y-2">
+                                <li>• Live packet capture and offline analysis</li>
+                                <li>• Deep packet inspection and protocol dissection</li>
+                                <li>• Powerful display and capture filtering</li>
+                                <li>• Statistical analysis and reporting</li>
+                            </ul>
+                            <ul class="space-y-2">
+                                <li>• Support for 1000+ protocols</li>
+                                <li>• Conversation and endpoint analysis</li>
+                                <li>• Expert analysis and troubleshooting</li>
+                                <li>• Extensible with plugins and custom dissectors</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wireshark Basics -->
+                <div id="wireshark-basics" class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Wireshark Fundamentals</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Interface Overview</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h5 class="font-semibold mb-3">Main Window Components</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• <strong>Packet List Pane:</strong> Shows captured packets in summary format</li>
+                                        <li>• <strong>Packet Details Pane:</strong> Displays protocol tree for selected packet</li>
+                                        <li>• <strong>Packet Bytes Pane:</strong> Shows raw packet data in hex and ASCII</li>
+                                        <li>• <strong>Display Filter Bar:</strong> Apply filters to view specific packets</li>
+                                        <li>• <strong>Status Bar:</strong> Shows capture statistics and information</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold mb-3">Key Features</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• <strong>Coloring Rules:</strong> Visual packet classification</li>
+                                        <li>• <strong>Follow Stream:</strong> Reconstruct conversation flows</li>
+                                        <li>• <strong>Expert Info:</strong> Automated problem detection</li>
+                                        <li>• <strong>Statistics:</strong> Protocol hierarchy and I/O graphs</li>
+                                        <li>• <strong>Export Objects:</strong> Extract files from captures</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Your First Packet Capture</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="flex items-start mb-4">
+                                <div class="step-number">1</div>
+                                <div>
+                                    <h5 class="font-semibold mb-2">Start Wireshark and Select Interface</h5>
+                                    <p class="text-sm text-gray-600 mb-3">
+                                        Launch Wireshark and select your network interface from the welcome screen. 
+                                        Look for the interface with traffic (shown by the graph lines).
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start mb-4">
+                                <div class="step-number">2</div>
+                                <div>
+                                    <h5 class="font-semibold mb-2">Start Capturing</h5>
+                                    <p class="text-sm text-gray-600 mb-3">
+                                        Click the blue shark fin icon or press Ctrl+E to start capturing packets. 
+                                        You'll immediately see packets flowing in the packet list pane.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start mb-4">
+                                <div class="step-number">3</div>
+                                <div>
+                                    <h5 class="font-semibold mb-2">Generate Some Traffic</h5>
+                                    <p class="text-sm text-gray-600 mb-3">
+                                        Open a web browser and visit a website to generate HTTP traffic. 
+                                        Try pinging a server to see ICMP packets.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="step-number">4</div>
+                                <div>
+                                    <h5 class="font-semibold mb-2">Stop and Analyze</h5>
+                                    <p class="text-sm text-gray-600 mb-3">
+                                        Press Ctrl+E again to stop capturing. Click on individual packets to see 
+                                        their details in the packet details pane.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Command Line Interface: TShark</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <p class="text-gray-700 mb-4">
+                                TShark is Wireshark's command-line counterpart, perfect for automation and remote analysis.
+                            </p>
+                            <div class="code-block">
+                                <div class="code-font">
+                                    # Basic packet capture<br>
+                                    tshark -i eth0<br>
+                                    <br>
+                                    # Capture to file<br>
+                                    tshark -i eth0 -w capture.pcap<br>
+                                    <br>
+                                    # Read from file<br>
+                                    tshark -r capture.pcap<br>
+                                    <br>
+                                    # Apply capture filter<br>
+                                    tshark -i eth0 -f "tcp port 80"<br>
+                                    <br>
+                                    # Apply display filter<br>
+                                    tshark -r capture.pcap -Y "http.request.method == GET"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtering Techniques -->
+                <div id="wireshark-filters" class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Advanced Filtering Techniques</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Capture Filters vs Display Filters</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-blue-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">
+                                    <i class="fas fa-filter mr-2 text-blue-600"></i>Capture Filters
+                                </h5>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    Applied during packet capture. Use BPF (Berkeley Packet Filter) syntax. 
+                                    More efficient but less flexible.
+                                </p>
+                                <div class="code-block text-sm">
+                                    <div class="code-font">
+                                        # Protocol filters<br>
+                                        tcp<br>
+                                        udp<br>
+                                        icmp<br>
+                                        <br>
+                                        # Host filters<br>
+                                        host 192.168.1.1<br>
+                                        src host 192.168.1.1<br>
+                                        dst host 192.168.1.1<br>
+                                        <br>
+                                        # Port filters<br>
+                                        port 80<br>
+                                        src port 443<br>
+                                        dst port 22<br>
+                                        <br>
+                                        # Complex filters<br>
+                                        tcp and port 80<br>
+                                        host 192.168.1.1 and not port 22
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">
+                                    <i class="fas fa-eye mr-2 text-green-600"></i>Display Filters
+                                </h5>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    Applied after capture. More powerful and flexible with protocol-specific fields.
+                                </p>
+                                <div class="code-block text-sm">
+                                    <div class="code-font">
+                                        # Protocol filters<br>
+                                        tcp<br>
+                                        http<br>
+                                        dns<br>
+                                        <br>
+                                        # IP address filters<br>
+                                        ip.addr == 192.168.1.1<br>
+                                        ip.src == 10.0.0.1<br>
+                                        ip.dst == 172.16.0.1<br>
+                                        <br>
+                                        # TCP flags<br>
+                                        tcp.flags.syn == 1<br>
+                                        tcp.flags.reset == 1<br>
+                                        <br>
+                                        # HTTP specific<br>
+                                        http.request.method == "GET"<br>
+                                        http.response.code == 200
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Essential Display Filters</h4>
+                        
+                        <div class="table-container">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Filter</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="4"><strong>Protocol</strong></td>
+                                        <td class="code-font">tcp</td>
+                                        <td>All TCP traffic</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="code-font">udp</td>
+                                        <td>All UDP traffic</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="code-font">http</td>
+                                        <td>HTTP traffic only</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="code-font">dns</td>
+                                        <td>DNS queries and responses</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3"><strong>IP Address</strong></td>
+                                        <td class="code-font">ip.addr == 192.168.1.1</td>
+                                        <td>Traffic to/from specific IP</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="code-font">ip.src == 10.0.0.1</td>
+                                        <td>Traffic from specific source</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="code-font">ip.dst == 172.16.0.1</td>
+                                        <td>Traffic to specific destination</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3"><strong>Port</strong></td>
+                                        <td class="code-font">tcp.port == 80</td>
+                                        <td>TCP traffic on port 80</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="code-font">tcp.srcport == 443</td>
+                                        <td>TCP traffic from port 443</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="code-font">tcp.dstport == 22</td>
+                                        <td>TCP traffic to port 22</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3"><strong>TCP Flags</strong></td>
+                                        <td class="code-font">tcp.flags.syn == 1</td>
+                                        <td>TCP SYN packets</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="code-font">tcp.flags.reset == 1</td>
+                                        <td>TCP RST packets</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="code-font">tcp.flags.fin == 1</td>
+                                        <td>TCP FIN packets</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Complex Filter Examples</h4>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-semibold mb-2">Web Traffic Analysis</h5>
+                                <div class="code-block text-sm">
+                                    <div class="code-font">
+                                        # All HTTP requests<br>
+                                        http.request<br>
+                                        <br>
+                                        # HTTP POST requests<br>
+                                        http.request.method == "POST"<br>
+                                        <br>
+                                        # HTTP responses with errors<br>
+                                        http.response.code &gt;= 400<br>
+                                        <br>
+                                        # HTTPS traffic<br>
+                                        ssl or tls<br>
+                                        <br>
+                                        # Web traffic to specific domain<br>
+                                        http.host == "example.com"
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-semibold mb-2">Network Troubleshooting</h5>
+                                <div class="code-block text-sm">
+                                    <div class="code-font">
+                                        # TCP connection problems<br>
+                                        tcp.flags.reset == 1<br>
+                                        <br>
+                                        # DNS resolution issues<br>
+                                        dns.flags.response == 1 and dns.flags.rcode != 0<br>
+                                        <br>
+                                        # Large packets (potential fragmentation)<br>
+                                        frame.len &gt; 1500<br>
+                                        <br>
+                                        # Duplicate packets<br>
+                                        tcp.analysis.duplicate_ack<br>
+                                        <br>
+                                        # Retransmitted packets<br>
+                                        tcp.analysis.retransmission
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-semibold mb-2">Security Analysis</h5>
+                                <div class="code-block text-sm">
+                                    <div class="code-font">
+                                        # Suspicious port scanning<br>
+                                        tcp.flags.syn == 1 and tcp.flags.ack == 0<br>
+                                        <br>
+                                        # Failed authentication attempts<br>
+                                        http.response.code == 401<br>
+                                        <br>
+                                        # Potential data exfiltration<br>
+                                        frame.len &gt; 1000 and not tcp.port == 80 and not tcp.port == 443<br>
+                                        <br>
+                                        # Unusual protocols<br>
+                                        not tcp and not udp and not icmp<br>
+                                        <br>
+                                        # Encrypted traffic patterns<br>
+                                        ssl.handshake.type == 1
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Traffic Analysis -->
+                <div id="wireshark-analysis" class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Network Traffic Analysis</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Protocol Analysis</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="mb-4">
+                                <h5 class="font-semibold mb-3">TCP Stream Analysis</h5>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    Right-click on any TCP packet and select "Follow TCP Stream" to see the complete conversation.
+                                </p>
+                                <div class="bg-white p-4 rounded border">
+                                    <div class="text-sm code-font">
+                                        <span class="text-red-600">Client → Server:</span><br>
+                                        GET / HTTP/1.1<br>
+                                        Host: example.com<br>
+                                        User-Agent: Mozilla/5.0...<br>
+                                        <br>
+                                        <span class="text-blue-600">Server → Client:</span><br>
+                                        HTTP/1.1 200 OK<br>
+                                        Content-Type: text/html<br>
+                                        Content-Length: 1234<br>
+                                        <br>
+                                        &lt;html&gt;&lt;head&gt;&lt;title&gt;Example&lt;/title&gt;...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Statistical Analysis</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">Protocol Hierarchy</h5>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    Access via: Statistics → Protocol Hierarchy
+                                </p>
+                                <div class="text-sm space-y-1">
+                                    <div>• Frame: 100% (1000 packets)</div>
+                                    <div class="ml-4">• Ethernet: 100% (1000 packets)</div>
+                                    <div class="ml-8">• IP: 95% (950 packets)</div>
+                                    <div class="ml-12">• TCP: 80% (800 packets)</div>
+                                    <div class="ml-16">• HTTP: 40% (400 packets)</div>
+                                    <div class="ml-16">• HTTPS: 30% (300 packets)</div>
+                                    <div class="ml-12">• UDP: 15% (150 packets)</div>
+                                    <div class="ml-16">• DNS: 10% (100 packets)</div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">Conversations</h5>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    Access via: Statistics → Conversations
+                                </p>
+                                <div class="table-container">
+                                    <table class="w-full text-xs">
+                                        <thead>
+                                            <tr>
+                                                <th>Address A</th>
+                                                <th>Address B</th>
+                                                <th>Packets</th>
+                                                <th>Bytes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>192.168.1.100</td>
+                                                <td>8.8.8.8</td>
+                                                <td>45</td>
+                                                <td>12.5 KB</td>
+                                            </tr>
+                                            <tr>
+                                                <td>192.168.1.100</td>
+                                                <td>93.184.216.34</td>
+                                                <td>120</td>
+                                                <td>85.2 KB</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Expert Analysis</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <p class="text-gray-700 mb-4">
+                                Wireshark's Expert Information system automatically detects and reports network issues.
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h5 class="font-semibold mb-3">Severity Levels</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li class="flex items-center">
+                                            <span class="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
+                                            <strong>Error:</strong> Serious protocol violations
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
+                                            <strong>Warn:</strong> Unusual or suspicious behavior
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
+                                            <strong>Note:</strong> Informational messages
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
+                                            <strong>Chat:</strong> General conversation details
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold mb-3">Common Issues Detected</h5>
+                                    <ul class="space-y-1 text-sm">
+                                        <li>• TCP retransmissions</li>
+                                        <li>• Duplicate ACKs</li>
+                                        <li>• Zero window conditions</li>
+                                        <li>• Checksum errors</li>
+                                        <li>• Fragmented packets</li>
+                                        <li>• Protocol violations</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Forensics -->
+                <div id="wireshark-forensics" class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Digital Forensics with Wireshark</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">File Extraction</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <p class="text-gray-700 mb-4">
+                                Wireshark can extract files transmitted over various protocols:
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h5 class="font-semibold mb-3">Export Objects</h5>
+                                    <div class="space-y-2 text-sm">
+                                        <div><strong>File → Export Objects → HTTP</strong></div>
+                                        <div><strong>File → Export Objects → SMB</strong></div>
+                                        <div><strong>File → Export Objects → TFTP</strong></div>
+                                        <div><strong>File → Export Objects → FTP-DATA</strong></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold mb-3">Supported Protocols</h5>
+                                    <div class="space-y-1 text-sm">
+                                        <div>• HTTP/HTTPS files</div>
+                                        <div>• SMB file shares</div>
+                                        <div>• FTP transfers</div>
+                                        <div>• Email attachments</div>
+                                        <div>• TFTP transfers</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Credential Analysis</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="warning-box">
+                                <p>
+                                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                                    <strong>Warning:</strong> Only analyze credentials on networks you own or have explicit permission to investigate.
+                                </p>
+                            </div>
+                            <div class="code-block">
+                                <div class="code-font">
+                                    # Find HTTP Basic Authentication<br>
+                                    http.authbasic<br>
+                                    <br>
+                                    # Find HTTP form submissions<br>
+                                    http.request.method == "POST"<br>
+                                    <br>
+                                    # Find FTP credentials<br>
+                                    ftp.request.command == "USER" or ftp.request.command == "PASS"<br>
+                                    <br>
+                                    # Find Telnet credentials<br>
+                                    telnet<br>
+                                    <br>
+                                    # Find SMTP authentication<br>
+                                    smtp.req.command == "AUTH"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Incident Response Workflows</h4>
+                        <div class="space-y-6">
+                            <div class="bg-blue-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">
+                                    <i class="fas fa-search mr-2 text-blue-600"></i>Malware Communication Analysis
+                                </h5>
+                                <div class="bg-white p-4 rounded-lg">
+                                    <div class="code-block text-sm">
+                                        <div class="code-font">
+                                            # Identify C2 communication<br>
+                                            # Look for regular beaconing<br>
+                                            tcp.stream eq 1 and frame.time_delta &gt; 60<br>
+                                            <br>
+                                            # Unusual user agents<br>
+                                            http.user_agent contains "bot" or http.user_agent contains "crawler"<br>
+                                            <br>
+                                            # Suspicious domains<br>
+                                            dns.qry.name contains "suspicious-domain.com"<br>
+                                            <br>
+                                            # Encrypted tunneling<br>
+                                            ssl.handshake.type == 1 and tcp.dstport != 443
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-red-50 p-6 rounded-lg">
+                                <h5 class="font-semibold mb-3">
+                                    <i class="fas fa-shield-alt mr-2 text-red-600"></i>Data Exfiltration Detection
+                                </h5>
+                                <div class="bg-white p-4 rounded-lg">
+                                    <div class="code-block text-sm">
+                                        <div class="code-font">
+                                            # Large uploads<br>
+                                            http.request.method == "POST" and http.content_length &gt; 1000000<br>
+                                            <br>
+                                            # Unusual file transfers<br>
+                                            ftp-data or http.request.method == "PUT"<br>
+                                            <br>
+                                            # DNS tunneling<br>
+                                            dns.qry.name.len &gt; 50<br>
+                                            <br>
+                                            # Encrypted email<br>
+                                            smtp and ssl
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-world Test Cases -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Real-World Test Cases</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-semibold mb-4">
+                                <i class="fas fa-flask mr-2 text-blue-600"></i>Test Case 1: Web Application Performance Analysis
+                            </h4>
+                            <p class="mb-4"><strong>Scenario:</strong> Users report slow website performance. Analyze network traffic to identify bottlenecks.</p>
+                            
+                            <div class="bg-white p-4 rounded-lg">
+                                <h5 class="font-semibold mb-3">Analysis Steps:</h5>
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <div class="step-number">1</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Capture User Session</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Capture filter for web traffic<br>
+                                                    port 80 or port 443
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="step-number">2</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Analyze HTTP Response Times</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Display filter for HTTP requests<br>
+                                                    http.request<br>
+                                                    <br>
+                                                    # Check response times in Statistics → Service Response Time → HTTP
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="step-number">3</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Identify Large Files</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Find large HTTP responses<br>
+                                                    http.response and frame.len &gt; 10000
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="step-number">4</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Check for TCP Issues</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Look for retransmissions<br>
+                                                    tcp.analysis.retransmission<br>
+                                                    <br>
+                                                    # Check for duplicate ACKs<br>
+                                                    tcp.analysis.duplicate_ack
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-semibold mb-4">
+                                <i class="fas fa-flask mr-2 text-green-600"></i>Test Case 2: Network Security Investigation
+                            </h4>
+                            <p class="mb-4"><strong>Scenario:</strong> Suspicious network activity detected. Investigate potential security breach.</p>
+                            
+                            <div class="bg-white p-4 rounded-lg">
+                                <h5 class="font-semibold mb-3">Investigation Process:</h5>
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <div class="step-number">1</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Identify Suspicious Connections</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Look for unusual outbound connections<br>
+                                                    tcp.flags.syn == 1 and tcp.flags.ack == 0<br>
+                                                    <br>
+                                                    # Check Statistics → Conversations for unusual IPs
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="step-number">2</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Analyze DNS Queries</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Look for suspicious domains<br>
+                                                    dns.qry.name contains "suspicious"<br>
+                                                    <br>
+                                                    # Check for DNS tunneling<br>
+                                                    dns.qry.name.len &gt; 50
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="step-number">3</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Follow Suspicious Streams</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Right-click on suspicious packet<br>
+                                                    # Select "Follow TCP Stream"<br>
+                                                    # Analyze communication patterns
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="step-number">4</div>
+                                        <div class="flex-1">
+                                            <h6 class="font-medium">Extract Evidence</h6>
+                                            <div class="code-block text-sm mt-2">
+                                                <div class="code-font">
+                                                    # Export objects if malware detected<br>
+                                                    # File → Export Objects → HTTP<br>
+                                                    # Save relevant streams as evidence
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 p-6 rounded-lg">
+                            <h4 class="font-semibold mb-4">
+                                <i class="fas fa-flask mr-2 text-yellow-600"></i>Test Case 3: VoIP Quality Analysis
+                            </h4>
+                            <p class="mb-4"><strong>Scenario:</strong> Voice quality issues in VoIP system. Analyze RTP streams for quality metrics.</p>
+                            
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="code-block">
+                                    <div class="code-font">
+                                        # Capture VoIP traffic<br>
+                                        port 5060 or port 5061 or (udp and portrange 10000-20000)<br>
+                                        <br>
+                                        # Analyze RTP streams<br>
+                                        # Statistics → RTP → RTP Streams<br>
+                                        # Telephony → RTP → RTP Stream Analysis<br>
+                                        <br>
+                                        # Check for:<br>
+                                        # - Packet loss<br>
+                                        # - Jitter<br>
+                                        # - Delay<br>
+                                        # - Out-of-order packets
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zenmap Section -->
+        <section id="zenmap" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-4xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-desktop mr-3 text-purple-600"></i>Zenmap: Nmap's Graphical Interface
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4">What is Zenmap?</h3>
+                    <p class="text-gray-700 mb-4">
+                        Zenmap is the official graphical user interface (GUI) for the Nmap Security Scanner. 
+                        It provides an intuitive, visual way to use Nmap's powerful features while maintaining 
+                        access to all command-line functionality.
+                    </p>
+
+                    <div class="bg-purple-50 p-6 rounded-lg mb-6">
+                        <h4 class="font-semibold mb-3">Key Features</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <ul class="space-y-2">
+                                <li>• Visual network topology mapping</li>
+                                <li>• Pre-configured scan profiles</li>
+                                <li>• Scan result comparison tools</li>
+                                <li>• Interactive host and service details</li>
+                            </ul>
+                            <ul class="space-y-2">
+                                <li>• Real-time scan progress monitoring</li>
+                                <li>• Comprehensive result filtering</li>
+                                <li>• Command wizard for complex scans</li>
+                                <li>• Export capabilities for reporting</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Getting Started with Zenmap</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Interface Overview</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h5 class="font-semibold mb-3">Main Components</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• <strong>Target Field:</strong> Enter IP addresses or hostnames</li>
+                                        <li>• <strong>Profile Dropdown:</strong> Select pre-configured scan types</li>
+                                        <li>• <strong>Command Field:</strong> Shows/edit the actual Nmap command</li>
+                                        <li>• <strong>Scan Button:</strong> Execute the scan</li>
+                                        <li>• <strong>Results Tabs:</strong> View scan output in different formats</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold mb-3">Result Views</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• <strong>Nmap Output:</strong> Raw command-line output</li>
+                                        <li>• <strong>Ports/Hosts:</strong> Structured port and service information</li>
+                                        <li>• <strong>Topology:</strong> Visual network map</li>
+                                        <li>• <strong>Host Details:</strong> Comprehensive host information</li>
+                                        <li>• <strong>Scans:</strong> History of previous scans</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Pre-configured Profiles</h4>
+                        <div class="table-container">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Profile Name</th>
+                                        <th>Nmap Command</th>
+                                        <th>Purpose</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Intense scan</strong></td>
+                                        <td class="code-font">nmap -T4 -A -v</td>
+                                        <td>Comprehensive scan with OS detection, version detection, script scanning, and traceroute</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Intense scan plus UDP</strong></td>
+                                        <td class="code-font">nmap -sS -sU -T4 -A -v</td>
+                                        <td>Intense scan plus UDP port scanning</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Intense scan, all TCP ports</strong></td>
+                                        <td class="code-font">nmap -p 1-65535 -T4 -A -v</td>
+                                        <td>Scans all 65535 TCP ports</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Intense scan, no ping</strong></td>
+                                        <td class="code-font">nmap -T4 -A -v -Pn</td>
+                                        <td>Intense scan without ping (for firewalled hosts)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Ping scan</strong></td>
+                                        <td class="code-font">nmap -sn</td>
+                                        <td>Discover which hosts are online</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Quick scan</strong></td>
+                                        <td class="code-font">nmap -T4 -F</td>
+                                        <td>Fast scan of common ports</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Quick scan plus</strong></td>
+                                        <td class="code-font">nmap -sV -T4 -O -F --version-light</td>
+                                        <td>Quick scan with version detection</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Quick traceroute</strong></td>
+                                        <td class="code-font">nmap -sn --traceroute</td>
+                                        <td>Discover hosts and trace network path</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Regular scan</strong></td>
+                                        <td class="code-font">nmap</td>
+                                        <td>Basic default scan</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Slow comprehensive scan</strong></td>
+                                        <td class="code-font">nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)"</td>
+                                        <td>Extremely thorough scan</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Network Topology Visualization</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <p class="text-gray-700 mb-4">
+                                Zenmap's topology view creates an interactive network map showing:
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h5 class="font-semibold mb-3">Visual Elements</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• <strong>Nodes:</strong> Represent discovered hosts</li>
+                                        <li>• <strong>Connections:</strong> Show network relationships</li>
+                                        <li>• <strong>Color Coding:</strong> Indicates host status and services</li>
+                                        <li>• <strong>Clustering:</strong> Groups related hosts</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold mb-3">Interactive Features</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• Click hosts for detailed information</li>
+                                        <li>• Zoom and pan for large networks</li>
+                                        <li>• Filter by service type or port</li>
+                                        <li>• Export topology images</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Advanced Zenmap Features</h3>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Scan Comparison</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <p class="text-gray-700 mb-4">
+                                Zenmap can compare multiple scans to identify changes in network configuration:
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="step-number">1</div>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium">Perform Initial Scan</h6>
+                                        <p class="text-sm text-gray-600">
+                                            Run a comprehensive scan and save the results.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="step-number">2</div>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium">Perform Follow-up Scan</h6>
+                                        <p class="text-sm text-gray-600">
+                                            Run the same scan after some time has passed.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="step-number">3</div>
+                                    <div class="flex-1">
+                                        <h6 class="font-medium">Compare Results</h6>
+                                        <p class="text-sm text-gray-600">
+                                            Use Tools → Compare Results to see differences highlighted.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Custom Profile Creation</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <p class="text-gray-700 mb-4">
+                                Create custom scan profiles for specific use cases:
+                            </p>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h5 class="font-semibold mb-3">Example: Web Server Audit Profile</h5>
+                                    <div class="code-block text-sm">
+                                        <div class="code-font">
+                                            Profile Name: Web Server Audit<br>
+                                            Description: Comprehensive web server security scan<br>
+                                            Command: nmap -p 80,443,8080,8443 -sV -sC --script http-enum,http-headers,http-methods,ssl-cert,ssl-enum-ciphers -T4<br>
+                                            <br>
+                                            # To create:<br>
+                                            # 1. Enter command in Command field<br>
+                                            # 2. Click Profile → New Profile<br>
+                                            # 3. Enter profile name and description<br>
+                                            # 4. Save profile
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-4">Search and Filter</h4>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <p class="text-gray-700 mb-4">
+                                Zenmap provides powerful search and filtering capabilities:
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h5 class="font-semibold mb-3">Search Criteria</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• <strong>Host:</strong> IP addresses or hostnames</li>
+                                        <li>• <strong>Port:</strong> Specific ports or ranges</li>
+                                        <li>• <strong>Service:</strong> Service names or versions</li>
+                                        <li>• <strong>OS:</strong> Operating system details</li>
+                                        <li>• <strong>Open:</strong> Only open ports</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold mb-3">Filter Examples</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• <code>port:80</code> - Hosts with port 80 open</li>
+                                        <li>• <code>service:http</code> - HTTP services</li>
+                                        <li>• <code>os:linux</code> - Linux systems</li>
+                                        <li>• <code>open:true</code> - Only open ports</li>
+                                        <li>• <code>host:192.168.1.0/24</code> - Specific subnet</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">When to Use Zenmap vs Nmap CLI</h3>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-semibold mb-4">
+                                <i class="fas fa-desktop mr-2 text-green-600"></i>Use Zenmap When:
+                            </h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• Learning Nmap functionality</li>
+                                <li>• Need visual network topology</li>
+                                <li>• Comparing scan results</li>
+                                <li>• Creating reports with screenshots</li>
+                                <li>• Exploring scan results interactively</li>
+                                <li>• Working with non-technical stakeholders</li>
+                                <li>• Quick ad-hoc scanning</li>
+                                <li>• Demonstrating network discoveries</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-semibold mb-4">
+                                <i class="fas fa-terminal mr-2 text-blue-600"></i>Use Nmap CLI When:
+                            </h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• Automation and scripting</li>
+                                <li>• Remote server administration</li>
+                                <li>• Continuous integration pipelines</li>
+                                <li>• Maximum performance needed</li>
+                                <li>• Complex custom commands</li>
+                                <li>• Minimal system resources</li>
+                                <li>• Batch processing large networks</li>
+                                <li>• Integration with other tools</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 info-box">
+                        <h4 class="font-semibold mb-2">
+                            <i class="fas fa-lightbulb mr-2 text-blue-600"></i>Pro Tip
+                        </h4>
+                        <p>
+                            Use Zenmap to learn and experiment with Nmap commands, then transition to CLI for 
+                            production work. Zenmap's command field shows exactly what Nmap command is being 
+                            executed, making it an excellent learning tool.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparisons Section -->
+        <section id="comparisons" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-8 text-gray-800">
+                    <i class="fas fa-balance-scale mr-3 text-indigo-600"></i>Tool Comparisons &amp; Alternatives
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Nmap vs Alternatives</h3>
+                    
+                    <div class="table-container">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>Tool</th>
+                                    <th>Speed</th>
+                                    <th>Features</th>
+                                    <th>Use Case</th>
+                                    <th>Pros</th>
+                                    <th>Cons</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Nmap</strong></td>
+                                    <td class="text-yellow-600">Moderate</td>
+                                    <td class="text-green-600">Comprehensive</td>
+                                    <td>General purpose scanning</td>
+                                    <td>Feature-rich, reliable, scriptable</td>
+                                    <td>Can be slow for large networks</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Masscan</strong></td>
+                                    <td class="text-green-600">Very Fast</td>
+                                    <td class="text-red-600">Limited</td>
+                                    <td>High-speed port scanning</td>
+                                    <td>Extremely fast, efficient</td>
+                                    <td>Basic functionality only</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Zmap</strong></td>
+                                    <td class="text-green-600">Very Fast</td>
+                                    <td class="text-red-600">Limited</td>
+                                    <td>Internet-wide scanning</td>
+                                    <td>Designed for large-scale scans</td>
+                                    <td>Single-port scanning only</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Unicornscan</strong></td>
+                                    <td class="text-green-600">Fast</td>
+                                    <td class="text-yellow-600">Moderate</td>
+                                    <td>Asynchronous scanning</td>
+                                    <td>Efficient, good for large networks</td>
+                                    <td>Less feature-rich than Nmap</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Angry IP Scanner</strong></td>
+                                    <td class="text-green-600">Fast</td>
+                                    <td class="text-red-600">Basic</td>
+                                    <td>Simple network discovery</td>
+                                    <td>Easy to use, cross-platform</td>
+                                    <td>Very limited functionality</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Wireshark vs Alternatives</h3>
+                    
+                    <div class="table-container">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>Tool</th>
+                                    <th>Interface</th>
+                                    <th>Performance</th>
+                                    <th>Use Case</th>
+                                    <th>Pros</th>
+                                    <th>Cons</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Wireshark</strong></td>
+                                    <td>GUI</td>
+                                    <td class="text-yellow-600">Moderate</td>
+                                    <td>Detailed packet analysis</td>
+                                    <td>Comprehensive protocol support, user-friendly</td>
+                                    <td>Resource intensive, complex for beginners</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>tcpdump</strong></td>
+                                    <td>CLI</td>
+                                    <td class="text-green-600">High</td>
+                                    <td>Command-line packet capture</td>
+                                    <td>Lightweight, scriptable, efficient</td>
+                                    <td>Limited analysis capabilities</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>NetworkMiner</strong></td>
+                                    <td>GUI</td>
+                                    <td class="text-yellow-600">Moderate</td>
+                                    <td>Network forensics</td>
+                                    <td>Excellent for forensics, user-friendly</td>
+                                    <td>Commercial license required</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ettercap</strong></td>
+                                    <td>GUI/CLI</td>
+                                    <td class="text-green-600">High</td>
+                                    <td>MitM attacks and sniffing</td>
+                                    <td>Built-in attack capabilities</td>
+                                    <td>Focused on offensive security</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Capsa</strong></td>
+                                    <td>GUI</td>
+                                    <td class="text-yellow-600">Moderate</td>
+                                    <td>Windows network analysis</td>
+                                    <td>Windows-optimized, good reporting</td>
+                                    <td>Windows-only, commercial</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+<div class="mb-8">
+    <h3 class="text-2xl font-semibold mb-6">Integrated Workflows</h3>
+    
+    <div class="space-y-6">
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h4 class="font-semibold mb-4">
+                <i class="fas fa-project-diagram mr-2 text-blue-600"></i>Penetration Testing Workflow
+            </h4>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-lg">
+                    <h5 class="font-semibold mb-2">1. Discovery</h5>
+                    <ul class="text-sm space-y-1">
+                        <li>• Nmap host discovery</li>
+                        <li>• Network mapping</li>
+                        <li>• Service enumeration</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg">
+                    <h5 class="font-semibold mb-2">2. Analysis</h5>
+                    <ul class="text-sm space-y-1">
+                        <li>• Wireshark traffic analysis</li>
+                        <li>• Protocol investigation</li>
+                        <li>• Vulnerability validation</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg">
+                    <h5 class="font-semibold mb-2">3. Exploitation</h5>
+                    <ul class="text-sm space-y-1">
+                        <li>• Exploit vulnerable services</li>
+                        <li>• Credential harvesting</li>
+                        <li>• Privilege escalation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></div></section></main></body></html>
